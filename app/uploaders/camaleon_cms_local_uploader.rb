@@ -89,6 +89,7 @@ class CamaleonCmsLocalUploader < CamaleonCmsUploader
 
     add_folder(File.dirname(key)) if File.dirname(key).present?
     upload_io = uploaded_io_or_file_path.is_a?(String) ? File.open(uploaded_io_or_file_path) : uploaded_io_or_file_path
+    upload_io.rewind
     File.open(File.join(@root_folder, key), 'wb') { |file| file.write(upload_io.read) }
     res = cache_item(file_parse(key)) unless args[:is_thumb]
     res
